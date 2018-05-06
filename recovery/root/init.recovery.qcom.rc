@@ -1,0 +1,20 @@
+on fs
+    symlink /dev/block/platform/soc.0/f9824900.sdhci /dev/block/bootdevice
+
+    wait /dev/block/bootdevice/by-name/cache
+    mount ext4 /dev/block/bootdevice/by-name/cache /cache nosuid nodev barrier=1
+
+on boot
+    write /sys/class/android_usb/android0/idVendor 0FCE
+    write /sys/class/android_usb/android0/idProduct 6${ro.usb.pid_suffix}
+
+    # Max default frequencies
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 1555200
+    write /sys/devices/system/cpu/cpu4/cpufreq/scaling_max_freq 1248000
+    # Configure governor settings for big cluster
+    write /sys/devices/system/cpu/cpu4/core_ctl/max_cpus 2
+    write /sys/devices/system/cpu/cpu4/core_ctl/min_cpus 1
+    chown system system /sys/devices/system/cpu/cpu4/core_ctl/min_cpus
+    chown system system /sys/devices/system/cpu/cpu4/core_ctl/max_cpus
+    write /sys/devices/system/cpu/cpu4/core_ctl/busy_down_thres "40 40 40 40"
+    write /sys/devices/system/cpu/cpu4/core_ctl/busy_up_thres "70 70 70 70"
