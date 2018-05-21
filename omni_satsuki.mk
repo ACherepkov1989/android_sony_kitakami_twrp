@@ -16,7 +16,7 @@
 # Device identification
 PRODUCT_NAME   := omni_satsuki
 PRODUCT_MODEL  := Xperia Z5 Premium
-PRODUCT_DEVICE := sumire
+PRODUCT_DEVICE := satsuki
 PRODUCT_BRAND  := Sony
 PRODUCT_MANUFACTURER := Sony
 PRODUCT_RELEASE_NAME := satsuki
