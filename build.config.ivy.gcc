@@ -1,0 +1,14 @@
+export KBUILD_BUILD_USER=GreyLeshy
+export KBUILD_BUILD_HOST=BuildHost
+
+export ARCH=arm64
+export PATH=~/android/toolchain/aarch64-linux-android-4.9/bin/:$PATH
+export CROSS_COMPILE=aarch64-linux-android-
+
+mkdir -p out
+make kitakami_ivy_defconfig O=./out
+
+NUM_CPUS=`grep -c ^processor /proc/cpuinfo`
+make -j$NUM_CPUS O=./out
+
+cp out/arch/arm64/boot/Image.gz-dtb ../final_files/kernel_ivy
